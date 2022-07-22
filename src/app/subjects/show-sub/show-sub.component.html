@@ -1,0 +1,30 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>SubjectId</th>
+      <th>Icon</th>
+      <th>Subject Name</th>
+      <th>Classroom</th>
+      <th>Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let thing of SubjectsList">
+      <td>{{thing}}</td>
+      <td>{{thing.subjectId}}</td>
+      <td>{{thing.subjectId}}</td>
+      <td>{{thing.subjectId}}</td>
+      <td>
+        <button type="button" class="btn btn-light mr-1">
+          Create
+        </button>
+        <button type="button" class="btn btn-light mr-1">
+          Edit
+        </button>
+        <button type="button" class="btn btn-light mr-1">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
