@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Add Teacher</h1>
+<div mat-dialog-content>
+  <form [formGroup]="teacherForm" class="DialogContent">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter teacher's name</mat-label>
+      <input matInput placeholder="Joe Doe" formControlName = "teacherName"/>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Subject</mat-label>
+      <mat-select formControlName = "taughtSubject">
+        <mat-option *ngFor="let subject of dataSource" [value]="subject.subjectName">
+          {{subject.subjectName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="warn" (click) = "addTeacher()">{{actionBtn}}</button>
+      <button mat-raised-button color="primary" mat-dialog-close="">Close</button>
+    </div>
+  </form>
+</div>

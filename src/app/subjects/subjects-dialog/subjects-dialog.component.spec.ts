@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddEditSubComponent } from './add-edit-sub.component';
+import { SubjectsDialogComponent } from './subjects-dialog.component';
 
-describe('AddEditSubComponent', () => {
-  let component: AddEditSubComponent;
-  let fixture: ComponentFixture<AddEditSubComponent>;
+describe('SubjectsDialogComponent', () => {
+  let component: SubjectsDialogComponent;
+  let fixture: ComponentFixture<SubjectsDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddEditSubComponent ]
+      declarations: [ SubjectsDialogComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AddEditSubComponent);
+    fixture = TestBed.createComponent(SubjectsDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { SharedService } from "../../shared.service";
-import {HttpClient} from "@angular/common/http";
-export class Subject{
-  constructor(
-    public subjectId : number,
-    public classroom : number,
-    public subjectName : string,
-    public photoFile : string
-  ) {
-  }
-}
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {SubjectsDialogComponent} from "../subjects-dialog/subjects-dialog.component";
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-show-sub',
@@ -17,27 +12,73 @@ export class Subject{
   styleUrls: ['./show-sub.component.css']
 })
 export class ShowSubComponent implements OnInit {
+  displayedColumns: string[] = ['subjectId', 'subjectName', 'classroom','action'];
+  dataSource!: MatTableDataSource<any>;
 
-  constructor(private service:SharedService,private httpClient:HttpClient) {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(private service:SharedService,private dialog:MatDialog) {
   }
   SubjectsList:any = [];
-
-
-  ngOnInit(): void {
-    this.refreshSubjectsList(),
-    this.getData()
-  }
-
-  refreshSubjectsList(){
-    this.service.getSubjectsList().subscribe(data=>{
-      this.SubjectsList = data;
+  openDialog() {
+    this.dialog.open(SubjectsDialogComponent, {
+      width:'30%'
+    }).afterClosed().subscribe(val=>{
+      if(val === 'Saved'){
+        this.getAllSubjects();
+      }
     });
   }
-  getData(){
-    let url = "http://localhost:5238/api/subjects";
-    return this.httpClient.get(url).subscribe((result:any)=>{
-      this.SubjectsList = result;
+
+  ngOnInit(): void {
+    this.getAllSubjects();
+  }
+
+  getAllSubjects(){
+    this.service.getSubjectsList().subscribe({
+      next:(res)=>{
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error:(err)=>{
+        alert("error while getting data from database");
+      }
     })
   }
+
+  editSubject(row: any){
+    this.dialog.open(SubjectsDialogComponent,{
+      width:'30%',
+      data:row
+    }).afterClosed().subscribe(val=>{
+      if(val === 'update'){
+        this.getAllSubjects();
+      }
+    });
+  }
+
+  deleteSubject(id:number){
+    this.service.deleteSubject(id).subscribe({
+      next:(res) =>{
+        alert("Deleted successfully");
+        this.getAllSubjects();
+      },
+      error:()=>{
+        alert("Error while deleting");
+      }
+    })
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 }
+
 
