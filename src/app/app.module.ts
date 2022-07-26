@@ -30,6 +30,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { ShowScheduleComponent } from './schedule/show-schedule/show-schedule.component';
 import {RouterModule} from "@angular/router";
 import { SubjectsDialogComponent } from './subjects/subjects-dialog/subjects-dialog.component';
+import { ScheduleDialogComponent } from './schedule/schedule-dialog/schedule-dialog.component';
 
 
 
@@ -44,7 +45,8 @@ import { SubjectsDialogComponent } from './subjects/subjects-dialog/subjects-dia
     HomeComponent,
     DialogTeacherComponent,
     ShowScheduleComponent,
-    SubjectsDialogComponent
+    SubjectsDialogComponent,
+    ScheduleDialogComponent
   ],
   imports: [
     BrowserModule,

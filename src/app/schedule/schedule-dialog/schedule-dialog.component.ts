@@ -5,30 +5,30 @@ import {MatDialogRef,MAT_DIALOG_DATA} from "@angular/material/dialog"
 import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
-  selector: 'app-dialog-teacher',
-  templateUrl: './dialog-teacher.component.html',
-  styleUrls: ['./dialog-teacher.component.css']
+  selector: 'app-schedule-dialog',
+  templateUrl: './schedule-dialog.component.html',
+  styleUrls: ['./schedule-dialog.component.css']
 })
-export class DialogTeacherComponent implements OnInit {
-  teacherForm !: FormGroup;
+export class ScheduleDialogComponent implements OnInit {
+  nameOfTheDay: Array<string> = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  scheduleForm !: FormGroup;
   actionBtn: string = "Save";
   dataSource:any[]=[];
   constructor(private formBuilder: FormBuilder,
               private service: SharedService,
               @Inject(MAT_DIALOG_DATA) public editData: any,
-              private dialogRef: MatDialogRef<DialogTeacherComponent>) {
+              private dialogRef: MatDialogRef<ScheduleDialogComponent>) {
   }
-
   ngOnInit(): void {
     this.getAllSubjects();
-    this.teacherForm = this.formBuilder.group({
-      teacherName: ['', Validators.required],
-      taughtSubject: ['', Validators.required],
+    this.scheduleForm = this.formBuilder.group({
+      nameOfTheDay: ['', Validators.required],
+      subjectName: ['', Validators.required]
     })
     if (this.editData) {
       this.actionBtn = "Update";
-      this.teacherForm.controls['teacherName'].setValue((this.editData.teacherName));
-      this.teacherForm.controls['taughtSubject'].setValue((this.editData.taughtSubject));
+      this.scheduleForm.controls['nameOfTheDay'].setValue((this.editData.nameOfTheDay));
+      this.scheduleForm.controls['subjectName'].setValue((this.editData.subjectName));
     }
   }
 
@@ -43,28 +43,28 @@ export class DialogTeacherComponent implements OnInit {
     })
   }
 
-  addTeacher() {
+  addSchedule() {
     if (!this.editData) {
-      if (this.teacherForm.valid) {
-        this.service.addTeacher(this.teacherForm.value).subscribe({
+      if (this.scheduleForm.valid) {
+        this.service.addSchedule(this.scheduleForm.value).subscribe({
           next: (res) => {
-            alert("Teacher added");
-            this.teacherForm.reset();
+            alert("Schedule added");
+            this.scheduleForm.reset();
             this.dialogRef.close('Saved');
           },
           error: () => {
-            console.log(this.teacherForm.value);
+            console.log(this.scheduleForm.value);
             alert("Error");
           }
         });
       }
     } else {
-      if (this.teacherForm.valid) {
-        this.service.updateTeacher(this.teacherForm.value, this.editData.teacherId)
+      if (this.scheduleForm.valid) {
+        this.service.updateSchedule(this.scheduleForm.value, this.editData.id)
           .subscribe({
             next: (res) => {
               alert("Edit successful");
-              this.teacherForm.reset();
+              this.scheduleForm.reset();
               this.dialogRef.close('update');
             },
             error: () => {

@@ -23,7 +23,7 @@ export class ShowTeaComponent implements OnInit {
   SubjectsList:any = [];
   openDialog() {
     this.dialog.open(DialogTeacherComponent, {
-      width:'30%'
+      width:'15%'
     }).afterClosed().subscribe(val=>{
       if(val === 'Saved'){
         this.getAllTeachers();
@@ -50,7 +50,7 @@ export class ShowTeaComponent implements OnInit {
 
   editTeacher(row: any){
     this.dialog.open(DialogTeacherComponent,{
-      width:'30%',
+      width:'15%',
       data:row
     }).afterClosed().subscribe(val=>{
       if(val === 'update'){

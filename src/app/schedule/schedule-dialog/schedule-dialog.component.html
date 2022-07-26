@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Add Schedule</h1>
+<div mat-dialog-content>
+  <form [formGroup]="scheduleForm" class="DialogContent">
+    <mat-form-field appearance="fill">
+      <mat-label>Day</mat-label>
+      <mat-select formControlName = "nameOfTheDay">
+        <mat-option *ngFor="let day of nameOfTheDay" [value]="day">
+          {{day}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Subject</mat-label>
+      <mat-select formControlName = "subjectName">
+        <mat-option *ngFor="let subject of dataSource" [value]="subject.subjectName">
+          {{subject.subjectName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="warn" (click) = "addSchedule()">{{actionBtn}}</button>
+      <button mat-raised-button color="primary" mat-dialog-close="">Close</button>
+    </div>
+  </form>
+</div>

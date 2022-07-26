@@ -42,6 +42,18 @@ export class SharedService {
   }
 
   getSchedule():Observable<any[]> {
-    return this.http.get<any>(this.APIUrl + '/schedule/');
+    return this.http.get<any>(this.APIUrl + '/schedule/list');
+  }
+
+  addSchedule(val:any){
+    return this.http.post(this.APIUrl+'/schedule',val);
+  }
+
+  updateSchedule(val:any,id:number){
+    return this.http.put(this.APIUrl+'/schedule/'+id,val);
+  }
+
+  deleteSchedule(id:number){
+    return this.http.delete(this.APIUrl+'/schedule/'+id);
   }
 }

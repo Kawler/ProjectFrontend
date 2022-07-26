@@ -23,7 +23,7 @@ export class ShowSubComponent implements OnInit {
   SubjectsList:any = [];
   openDialog() {
     this.dialog.open(SubjectsDialogComponent, {
-      width:'30%'
+      width:'15%'
     }).afterClosed().subscribe(val=>{
       if(val === 'Saved'){
         this.getAllSubjects();
@@ -50,7 +50,7 @@ export class ShowSubComponent implements OnInit {
 
   editSubject(row: any){
     this.dialog.open(SubjectsDialogComponent,{
-      width:'30%',
+      width:'15%',
       data:row
     }).afterClosed().subscribe(val=>{
       if(val === 'update'){
